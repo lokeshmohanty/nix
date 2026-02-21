@@ -6,9 +6,9 @@
   ...
 }: {
   imports = [
-    ./editor
     ./terminal
     ./browser
+    ./editor.nix
     ./launcher.nix
     ./shell.nix
     ./xdg.nix
@@ -98,6 +98,14 @@
       # remmina
       # freerdp # remote desktop client
     ];
+  activation.hyprland = lib.mkAfter ''
+    ln -sf ${builtins.toPath ../config/hypr} ${config.xdg.configHome}
+    ln -sf ${builtins.toPath ../config/waybar} ${config.xdg.configHome}
+    ln -sf ${builtins.toPath ../config/wlogout} ${config.xdg.configHome}
+    ln -sf ${builtins.toPath ../config/swappy} ${config.xdg.configHome}
+    ln -sf ${builtins.toPath ../config/gtk.css} ${config.xdg.configHome}
+    ln -sf ${builtins.toPath ../config/icons} ${config.xdg.configHome}
+  '';
   };
 
   stylixConfig.enable = true;

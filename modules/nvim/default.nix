@@ -18,9 +18,6 @@
         tree-sitter # for treesitter
         trashy # for Snacks.Explorer
         mermaid-cli ghostscript # for Snacks.Image
-
-        # others
-        himalaya # email
       ];
     };
 
@@ -52,6 +49,7 @@
 
         orgmode
         org-roam-nvim
+        zk-nvim
 
         nvim-lint
         conform-nvim

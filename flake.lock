@@ -790,15 +790,14 @@
         "plugins-org-bullets": "plugins-org-bullets"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-9dUiDV4koI5P8UKYZDOP+dIsXSbC7Y+Adt2cd8xVE/w=",
-        "path": "/nix/store/80fqwfpfmf6sg9xaqh7liqvd81k3pli0-source/modules/nvim",
+        "path": "./modules/nvim",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/80fqwfpfmf6sg9xaqh7liqvd81k3pli0-source/modules/nvim",
+        "path": "./modules/nvim",
         "type": "path"
-      }
+      },
+      "parent": []
     },
     "plugins-everforest": {
       "flake": false,

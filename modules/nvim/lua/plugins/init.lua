@@ -10,3 +10,15 @@ require("plugins.noice")
 require("plugins.mini")
 require("plugins.snacks")
 require("plugins.lze")         -- lazy-loaded plugins
+
+require("zk").setup({
+  picker = "snacks_picker",
+  lsp = {
+    config = {
+      name = "zk",
+      cmd = { "zk", "lsp" },
+      filetypes = { "markdown" },
+    },
+    auto_attach = { enabled = true, },
+  },
+})
