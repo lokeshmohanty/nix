@@ -1,6 +1,6 @@
-{ pkgs, lib, ... }: {
+{ pkgs, config, lib, ... }: {
   home.packages = [pkgs.rofi];
-  home.activation.nvim = lib.mkAfter ''
-  ln -sf $HOME/Documents/nix-config/home/config/rofi $HOME/.config/
+  home.activation.rofi = lib.mkAfter ''
+    ln -sf ${builtins.toPath ../config/rofi} ${config.xdg.configHome}
   '';
 }
