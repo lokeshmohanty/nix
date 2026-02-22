@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: {
-  imports = [ ../../system ];
+  imports = [../../system];
 
   hardware.graphics.enable = true;
   hardware.nvidia = {
@@ -35,7 +35,7 @@
   services.printing = {
     enable = true;
     # NIXPKGS_ALLOW_UNFREE=1 nix-shell -p hplipWithPlugin --run 'sudo -E hp-setup'
-    drivers = with pkgs; [ hplipWithPlugin ];
+    drivers = with pkgs; [hplipWithPlugin];
   };
   services.avahi = {
     enable = true;

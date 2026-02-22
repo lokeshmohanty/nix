@@ -1,10 +1,15 @@
-{ pkgs, lib, config, inputs, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}: {
+  imports = [inputs.nvim.homeModule];
 
-  imports = [ inputs.nvim.homeModule ];
-
-  home.packages = with pkgs; [ pre-commit slides ];
+  home.packages = with pkgs; [pre-commit slides];
   home.activation.zk = lib.mkAfter ''
-    ln -sf ${builtins.toPath ../config/zk} ${config.xdg.configHome}
+    ln -sf /home/lokesh/.nix/config/zk ${config.xdg.configHome}
   '';
 
   home.sessionVariables.EDITOR = "vi";

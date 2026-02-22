@@ -6,7 +6,7 @@ dir = "~/Documents/Notebook/"
 # This is used to generate slugs or with date formats.
 language = "en"
 default-title = "Untitled"
-filename = "{{id}}-{{slug title}}"
+filename = "{{id}}"
 extension = "md"
 template = "default.md"
 
@@ -56,8 +56,8 @@ list = "zk list --quiet $argv"
 e = "zk edit --interactive"
 t = "zk edit --interactive --tag $argv"
 d = 'zk edit "$ZK_NOTEBOOK_DIR/journal" --sort created- --interactive'
-ni = 'zk new --no-input "$ZK_NOTEBOOK_DIR/ideas" --title $argv'
-nn = 'zk new --no-input "$ZK_NOTEBOOK_DIR/notes" --title $argv'
+ni = 'zk new --no-input "$ZK_NOTEBOOK_DIR/ideas"'
+nn = 'zk new --no-input "$ZK_NOTEBOOK_DIR/notes"'
 rm = "zk list --interactive --quiet --format path --delimiter0 $argv | xargs -0 rm -vf --"
 
 

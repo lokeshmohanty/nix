@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     exiftool #  Read and write meta information in files
     nix-your-shell # use fish in nix develop / nix shell ...

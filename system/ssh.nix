@@ -1,4 +1,8 @@
-{lib, config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   # programs.ssh.startAgent = true;
   options.sshServer.enable = lib.mkEnableOption "enable ssh server";
   config = lib.mkIf config.sshServer.enable {

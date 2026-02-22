@@ -1,5 +1,5 @@
-{ config, ... }: {
-  imports = [ ../../home ];
+{config, ...}: {
+  imports = [../../home];
   programs.rclone = {
     enable = true;
     remotes = {
@@ -18,4 +18,3 @@
     };
   };
 }
-

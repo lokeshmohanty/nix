@@ -25,6 +25,13 @@
       bind-key M-j choose-window 'join-pane -h -s "%%"'
       bind-key M-J choose-window 'join-pane -s "%%"'
 
+      # copy and paste
+      bind -T copy-mode-vi v send -X begin-selection
+      bind -T copy-mode-vi v send -X begin-selection
+      bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+      bind P paste-buffer
+      bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel
+
       # for image support in yazi
       set -g allow-passthrough all
       set -ga update-environment TERM

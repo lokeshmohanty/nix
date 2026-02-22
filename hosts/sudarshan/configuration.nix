@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  imports = [ ../../system ];
+  imports = [../../system];
 
   hardware.bluetooth.enable = true;
   hardware.graphics = {

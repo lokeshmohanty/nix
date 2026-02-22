@@ -22,16 +22,24 @@
       flake = false;
     };
   };
-  outputs = { self, nixpkgs, ... }@inputs: let
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  } @ inputs: let
     inherit (inputs.nixCats) utils;
     # forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all;
     forEachSystem = nixpkgs.lib.genAttrs nixpkgs.lib.platforms.all;
     pluginOverlay = utils.standardPluginOverlay inputs;
-  in
-  {
+  in {
     packages = forEachSystem (system: let
-        pkgs = import nixpkgs { inherit system; overlays = [pluginOverlay]; config = {}; };
-    in utils.mkAllWithDefault (import ./. (inputs // { inherit pkgs utils; })));
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [pluginOverlay];
+        config = {};
+      };
+    in
+      utils.mkAllWithDefault (import ./. (inputs // {inherit pkgs utils;})));
     homeModule = self.packages.x86_64-linux.default.homeModule;
     nixosModule = self.packages.x86_64-linux.default.nixosModule;
   };

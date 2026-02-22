@@ -12,7 +12,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     musnix.url = "github:musnix/musnix";
 
-
     nix-alien.url = "github:thiagokokada/nix-alien";
     stylix.url = "github:danth/stylix";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -27,8 +26,8 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
       # import home-manager to export flake.homeConfigurations and flake.homeModules
-      imports = [ ./hosts  inputs.home-manager.flakeModules.home-manager ];
-      perSystem = { pkgs, ... }: {
+      imports = [./hosts inputs.home-manager.flakeModules.home-manager];
+      perSystem = {pkgs, ...}: {
         # packages = import ./pkgs {inherit pkgs inputs;};
         formatter = pkgs.alejandra;
       };

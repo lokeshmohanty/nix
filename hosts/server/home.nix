@@ -1,6 +1,9 @@
-{ config, pkgs, ...}: {
-
-  imports = [ ../../home/terminal/tmux.nix ../../home/editor ];
+{
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [../../home/terminal/tmux.nix ../../home/editor];
 
   nixpkgs = {
     config = {
@@ -40,7 +43,7 @@
       nix-your-shell # use fish in nix develop / nix shell ...
 
       cascadia-code # font
-      pyright       # python language server
+      pyright # python language server
     ];
     shell.enableShellIntegration = true;
   };
@@ -84,7 +87,7 @@
       if command -q nix-your-shell
         nix-your-shell fish | source
       end
-      
+
       fish_add_path "/usr/local/cuda-13.0/bin"
       set -Ux LD_LIBRARY_PATH /usr/local/cuda-13.0/lib64
     '';

@@ -58,7 +58,6 @@
       yt-dlp
       ffmpeg
 
-
       # isync   # sync emails
       # maim    # screenshots
       # nixfmt  # nix formatter
@@ -98,14 +97,14 @@
       # remmina
       # freerdp # remote desktop client
     ];
-  activation.hyprland = lib.mkAfter ''
-    ln -sf ${builtins.toPath ../config/hypr} ${config.xdg.configHome}
-    ln -sf ${builtins.toPath ../config/waybar} ${config.xdg.configHome}
-    ln -sf ${builtins.toPath ../config/wlogout} ${config.xdg.configHome}
-    ln -sf ${builtins.toPath ../config/swappy} ${config.xdg.configHome}
-    ln -sf ${builtins.toPath ../config/gtk.css} ${config.xdg.configHome}
-    ln -sf ${builtins.toPath ../config/icons} ${config.xdg.configHome}
-  '';
+    activation.hyprland = lib.mkAfter ''
+      ln -sf /home/lokesh/.nix/config/hypr ${config.xdg.configHome}
+      ln -sf /home/lokesh/.nix/config/waybar ${config.xdg.configHome}
+      ln -sf /home/lokesh/.nix/config/wlogout ${config.xdg.configHome}
+      ln -sf /home/lokesh/.nix/config/swappy ${config.xdg.configHome}
+      ln -sf /home/lokesh/.nix/config/gtk.css ${config.xdg.configHome}
+      ln -sf /home/lokesh/.nix/config/icons ${config.xdg.configHome}
+    '';
   };
 
   stylixConfig.enable = true;
