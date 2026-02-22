@@ -18,13 +18,21 @@ id-case = "lower" # Letter case for the random IDs.
 [extra]
 author = "Lokesh Mohanty"
 
-[group.daily]
+[group.journal]
 paths = ["journal"]
 
-[group.daily.note]
+[group.journal.note]
 filename = "{{ format-date now }}"
 extension = "md"
-template = "daily.md"
+template = "journal.md"
+
+[group.standup]
+paths = ["standup"]
+
+[group.standup.note]
+filename = "{{ format-date now }}"
+extension = "md"
+template = "standup.md"
 
 [format.markdown]
 hashtags = true # Enable support for #hashtags
@@ -45,22 +53,25 @@ dead-link = "error" # Warn for dead links between notes.
 missing-backlink = { level = "warning", position = "bottom" } # Warn when notes link here without backlinks.
 
 [alias]
+list = "zk list --quiet $argv"
+
 edlast = "zk edit --limit 1 --sort modified- $argv"
 recent = "zk edit --sort created- --created-after 'last two weeks' --interactive"
 lucky = "zk list --quiet --format full --sort random --limit 1"
 log = "zk list --quiet --format path --delimiter0 $argv | xargs -0 git log --patch --"
 wc = "zk list --format '{{word-count}}\t{{title}}' --sort word-count $argv"
 
-list = "zk list --quiet $argv"
+conf = "vi $HOME/.nix/config/zk/config.toml"
 
-e = "zk edit --interactive"
-t = "zk edit --interactive --tag $argv"
-d = 'zk edit "$ZK_NOTEBOOK_DIR/journal" --sort created- --interactive'
+ls = "zk edit --interactive"
+lst = "zk edit --interactive --tag $argv"
+lsj = 'zk edit "$ZK_NOTEBOOK_DIR/journal" --sort created- --interactive'
+lss = 'zk edit "$ZK_NOTEBOOK_DIR/standup" --sort created- --interactive'
 ni = 'zk new --no-input "$ZK_NOTEBOOK_DIR/ideas"'
 nn = 'zk new --no-input "$ZK_NOTEBOOK_DIR/notes"'
 rm = "zk list --interactive --quiet --format path --delimiter0 $argv | xargs -0 rm -vf --"
 
-
+standup = "zk new --no-input \"$ZK_NOTEBOOK_DIR/standup\""
 daily = "zk new --no-input \"$ZK_NOTEBOOK_DIR/journal\""
 journal = "zk edit --sort created- journal --interactive"
 
