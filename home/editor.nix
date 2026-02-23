@@ -13,6 +13,7 @@
   '';
 
   home.sessionVariables.EDITOR = "vi";
+  home.sessionVariables.ZK_NOTEBOOK_DIR = "/home/lokesh/Documents/Notebook";
   nvim = {
     enable = true;
     packageNames = ["nvim"];

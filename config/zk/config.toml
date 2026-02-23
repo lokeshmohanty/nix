@@ -6,7 +6,7 @@ dir = "~/Documents/Notebook/"
 # This is used to generate slugs or with date formats.
 language = "en"
 default-title = "Untitled"
-filename = "{{id}}"
+filename = "{{format-date now 'timestamp'}}-{{slug title}}" # "{{id}}"
 extension = "md"
 template = "default.md"
 
@@ -35,8 +35,10 @@ extension = "md"
 template = "standup.md"
 
 [format.markdown]
-hashtags = true # Enable support for #hashtags
-colon-tags = true # Enable support for :colon:separated:tags:
+hashtags = true
+multiword-tags = true
+
+wiki-link-format = "[[{{path}}|{{title}}]]"
 
 [tool]
 editor = "vi"
@@ -57,25 +59,30 @@ list = "zk list --quiet $argv"
 
 edlast = "zk edit --limit 1 --sort modified- $argv"
 recent = "zk edit --sort created- --created-after 'last two weeks' --interactive"
-lucky = "zk list --quiet --format full --sort random --limit 1"
-log = "zk list --quiet --format path --delimiter0 $argv | xargs -0 git log --patch --"
-wc = "zk list --format '{{word-count}}\t{{title}}' --sort word-count $argv"
+lucky  = "zk list --quiet --format full --sort random --limit 1"
+log    = "zk list --quiet --format path --delimiter0 $argv | xargs -0 git log --patch --"
+wc     = "zk list --format '{{word-count}}\t{{title}}' --sort word-count $argv"
+bl     = "zk list --link-to $argv"
+
+fix-backlinks     = "zk edit --interactive --mentioned-by $argv[1] --no-linked-by $argv[1]"
+unlinked-mentions = "zk list --mentioned-by $argv[1] --no-linked-by $argv[1]"
 
 conf = "vi $HOME/.nix/config/zk/config.toml"
 
-ls = "zk edit --interactive"
+ls  = "zk edit --interactive"
 lst = "zk edit --interactive --tag $argv"
 lsj = 'zk edit "$ZK_NOTEBOOK_DIR/journal" --sort created- --interactive'
 lss = 'zk edit "$ZK_NOTEBOOK_DIR/standup" --sort created- --interactive'
-ni = 'zk new --no-input "$ZK_NOTEBOOK_DIR/ideas"'
-nn = 'zk new --no-input "$ZK_NOTEBOOK_DIR/notes"'
-rm = "zk list --interactive --quiet --format path --delimiter0 $argv | xargs -0 rm -vf --"
+ni  = 'zk new --no-input "$ZK_NOTEBOOK_DIR/ideas" --title "$argv"'
+nn  = 'zk new --no-input "$ZK_NOTEBOOK_DIR/notes" --title "$argv"'
+rm  = "zk list --interactive --quiet --format path --delimiter0 $argv | xargs -0 rm -vf --"
 
 standup = "zk new --no-input \"$ZK_NOTEBOOK_DIR/standup\""
-daily = "zk new --no-input \"$ZK_NOTEBOOK_DIR/journal\""
+daily   = "zk new --no-input \"$ZK_NOTEBOOK_DIR/journal\""
 journal = "zk edit --sort created- journal --interactive"
 
-update = "cd $ZK_NOTEBOOK_DIR; git add -A; git commit -am 'update'; gith push; cd -"
+push   = "cd $ZK_NOTEBOOK_DIR; git commit -am 'sync: $(date +%Y-%m-%d)'; git push; cd -"
+pull   = "cd $ZK_NOTEBOOK_DIR; git pull; cd -"
 slides = "zk list --interactive --quiet --format path --delimiter0 $argv | xargs -0 slides"
 
 
