@@ -56,6 +56,11 @@
       yt-dlp
       ffmpeg
 
+      # Chrome-fingerprinted curl. Cloudflare-protected hosts reject Node's and
+      # stock curl's TLS handshake even with a valid clearance cookie; abdm-grab
+      # uses this to resolve them (see docs/how-to/abdm-grab.md).
+      curl-impersonate
+
       sqlite
 
       fzf

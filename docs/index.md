@@ -9,6 +9,8 @@ questions about this repo from this folder plus the linked pages.*
   hostlib, module toggles, variables, activations, custom packages.
 - [how-to/install-ubuntu.md](how-to/install-ubuntu.md) — bootstrap Nix and apply
   the portable server Home Manager profile on a fresh Ubuntu machine.
+- [how-to/abdm-grab.md](how-to/abdm-grab.md) — extract download links and queue
+  them in AB Download Manager; sources/hosts plugin layout.
 - [decisions.md](decisions.md) — dated rationale for significant configuration
   decisions.
 - Harness documentation lives at `../config/agentic-harness/agents/docs/`
@@ -21,6 +23,7 @@ questions about this repo from this folder plus the linked pages.*
 | Apply system config | `sudo nixos-rebuild switch --flake ~/.nix#sudarshan` (or `nh os switch . -c sudarshan`) |
 | Apply home config | `home-manager switch --flake ~/.nix#lokesh@sudarshan` |
 | Install on Ubuntu | `~/.nix/scripts/install.sh` (see the Ubuntu install guide) |
+| Queue download links into ABDM | `abdm-grab <url>` — see the abdm-grab guide |
 | Update inputs | `nix flake update` (in `~/.nix`) |
 | Syntax-check a module | `nix-instantiate --parse <file.nix>` |
 | Format | `nix fmt` (formatter: nixfmt) |

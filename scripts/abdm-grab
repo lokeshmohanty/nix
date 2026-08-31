@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+'use strict';
+/*
+ * abdm-grab -- extract download links from a page and queue them in
+ * AB Download Manager.
+ *
+ * This is a thin entry point; everything lives in abdm-grab.d/ so that sources
+ * (kinds of link page) and hosts (kinds of file host) are separate, drop-in
+ * modules. Start at abdm-grab.d/cli.js.
+ *
+ * Node resolves symlinks before computing __dirname, so this keeps working when
+ * ~/.local/bin/abdm-grab is a symlink into the nix config repo.
+ */
+
+const { main } = require('./abdm-grab.d/cli.js');
+const log = require('./abdm-grab.d/lib/log.js');
+const prompt = require('./abdm-grab.d/lib/prompt.js');
+
+process.on('SIGINT', () => {
+  process.stderr.write('\ninterrupted.\n');
+  prompt.close();
+  process.exit(130);
+});
+
+main()
+  .then(() => prompt.close())
+  .catch((err) => {
+    prompt.close();
+    log.err(err && err.message ? err.message : String(err));
+    if (process.env.ABDM_GRAB_DEBUG && err && err.stack) process.stderr.write(err.stack + '\n');
+    process.exit(1);
+  });
