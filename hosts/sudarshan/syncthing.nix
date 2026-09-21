@@ -1,18 +1,14 @@
 { ... }:
 {
   services.syncthing = {
-    enable = false;
+    enable = true;
     user = "lokesh";
     openDefaultPorts = true;
     overrideDevices = true;
     overrideFolders = true;
     dataDir = "/home/lokesh/.local/syncthing";
     settings = {
-      devices.lab.id = "HQ6HDW5-X6C3VWS-CYRV44J-CCYOENZ-BVYZLYN-VSCFQFU-MYXBB56-AC36ZAG";
-      # devices.office = {
-      #   id = "ABQJ7BS-BFMPBTG-ONT7GN5-UICS4SX-4F4AFI5-EMVSSNJ-6LA42IQ-SWZCAAJ";
-      #   addresses = [ "tcp://100.122.114.27:22000" ];
-      # };
+      devices.lab.id = "JMX5I5E-QPGGDMS-MWEE6FN-JPZXFHK-EJFSXVH-5FGKYBP-XXOR5VT-2LOB7AS";
       folders = {
         "Projects" = {
           path = "/home/lokesh/Projects";
@@ -22,6 +18,10 @@
           ignorePatterns = [
             ".venv/*"
             ".direnv/*"
+            "target/*"
+            "shell/*"
+            "node_modules/*"
+            ".output/*"
           ];
         };
         "Research" = {
@@ -32,6 +32,8 @@
           ignorePatterns = [
             ".venv/*"
             ".direnv/*"
+            "node_modules/*"
+            ".output/*"
           ];
         };
         "Presentations" = {
@@ -42,16 +44,8 @@
           ignorePatterns = [
             ".venv/*"
             ".direnv/*"
-          ];
-        };
-        "Books" = {
-          path = "/home/lokesh/Documents/Books";
-          devices = [
-            "lab"
-          ];
-          ignorePatterns = [
-            ".venv/*"
-            ".direnv/*"
+            "node_modules/*"
+            ".output/*"
           ];
         };
         "Practice" = {
@@ -62,6 +56,8 @@
           ignorePatterns = [
             ".venv/*"
             ".direnv/*"
+            "node_modules/*"
+            ".output/*"
           ];
         };
         "Notebook" = {
@@ -72,6 +68,8 @@
           ignorePatterns = [
             ".venv/*"
             ".direnv/*"
+            "node_modules/*"
+            ".output/*"
           ];
         };
         # "Personal" = {
