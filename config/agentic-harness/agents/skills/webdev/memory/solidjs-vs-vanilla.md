@@ -1,29 +1,41 @@
 ---
 description: >-
   Why converting personal/games from raw HTML/CSS/JS to SolidJS was rejected
-  (2026-08-10), and the reusable checklist for any framework-migration question.
+  (2026-08-10, re-asked and re-confirmed 2026-08-27), what was built instead,
+  and the reusable checklist for any framework-migration question.
 metadata:
   type: decision
   tags: [solidjs, framework, migration, build-step, vanilla-js]
 ---
 
-# SolidJS vs vanilla — the games repo verdict (2026-08-10)
+# SolidJS vs vanilla — the games repo verdict (2026-08-10, held 2026-08-27)
 
 **Verdict: do not convert.** Asked to weigh merits/demerits for
 `~/Projects/personal/games` (4 canvas games + portal, 5,570 lines, zero deps,
 no build step, deployed to GitHub Pages as raw files).
 
+**Lokesh asked again on 2026-08-27** — "would solidjs be a better option than
+raw js?" — mid-way through a build, not as an idle question. Expect it to come
+back; answer it with the measurement, not the verdict. The ratio had moved
+*away* from a framework: the session added ~700 lines of pure logic
+(`lib/secrets.js`, `lib/rounds.js`), so the reactive share fell to ~20% of 7,600
+lines. Same answer, better number.
+
 ## The measurement that decided it
 
-| Layer | Lines | Framework helps? |
-|---|---|---|
-| `lib/net.js`, `lib/qr.js`, `lib/qr-decode.js` | ~2,350 | No — pure logic, barely any DOM |
-| Canvas game loops (4 games) | ~1,800 | No — `rAF` + `ctx` draw calls |
-| `lib/lobby.js` + per-game HUD/overlay | ~900 | **Yes** |
-| CSS + portal | ~500 | No |
+Both times, and the second column is the one to quote now.
 
-Roughly **15%** of the code would benefit. That number, not taste, is the
-argument.
+| Layer | 2026-08-10 | 2026-08-27 | Framework helps? |
+|---|---|---|---|
+| P2P + codecs + the new plumbing (`net`, `qr`, `qr-decode`, `secrets`, `rounds`) | ~2,350 | ~3,214 | No — pure logic, barely any DOM |
+| Canvas game loops | ~1,800 | ~2,833 (6 games) | No — `rAF` + `ctx` draw calls |
+| DOM chrome (`lobby`, `party`, `games`, `pwa`) + per-game HUD | ~900 | ~1,566 | **Yes** |
+| CSS + portal | ~500 | ~500 | No |
+
+Roughly **15%**, then **~20%**, of the code would benefit. That number, not
+taste, is the argument — and note which way it moved: adding two pure-logic
+modules pushed the reactive share *down* even as the DOM chrome grew. A repo
+that keeps growing its logic layer keeps getting a worse case for a framework.
 
 ## Genuine merits found
 
@@ -58,12 +70,29 @@ argument.
 5. Single-file games stop being single-file — `connect4.html` is currently one
    readable, shareable file.
 
-## The counter-offer that was made instead
+## The counter-offer — half of it now exists
 
-A ~40-line `lib/reactive.js` (`createSignal` / `createEffect`) plus extracting
-the duplicated HUD/overlay into `lib/ui.js` as plain factory functions. That is
-Solid's actual innovation; JSX is ergonomics on top and is the part that costs
-the build.
+`lib/ui.js` **was built on 2026-08-27** (`NeonArcade.gameShell`): the duplicated
+stage/HUD/overlay chrome, as plain factory functions over plain DOM. The one
+idea borrowed from Solid is that `setHud` **updates text nodes in place** rather
+than rebuilding the row — that was the concrete Draw & Guess complaint above.
+
+The trigger mattered: it stopped being a tidy-up and became leverage at the
+moment three more games were about to be written against the same chrome. Do
+not propose it as standalone cleanup; propose it when the next game is queued.
+
+Two things it had to learn, both invisible until asserted at 390x844:
+
+- The stage must reserve **52px of top padding** for the fixed `.portal-link`
+  ("← ALL GAMES"). Vertically centring without it puts the status line
+  underneath the link, and it reads as a text bug rather than a layout one.
+- The child that absorbs leftover height takes a `.g-fill` class, **not**
+  `height: 100%` — the latter overflows the stage and pushes the status line off
+  the top.
+
+`lib/reactive.js` (`createSignal` / `createEffect`) was **not** built and has
+not been needed. Do not offer it unprompted; the factory functions covered the
+complaint on their own.
 
 ## Reusable checklist
 
@@ -79,5 +108,8 @@ Before recommending any framework migration:
 5. Ask whether the framework's *core idea* can be had without its *toolchain*.
 6. Present the merits honestly and first; a recommendation that only lists
    costs reads as reflexive conservatism and gets discounted.
+7. If the repo already rejected this once, **re-measure rather than quoting the
+   old verdict.** The numbers move, and a re-asked question deserves a current
+   answer — not "we decided this in August".
 
 See also the `ui` skill for the visual conventions that survive either choice.

@@ -97,7 +97,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = [ "ntfs" "nfs" ];
 
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -136,6 +136,7 @@
   environment.binsh = "${pkgs.dash}/bin/dash";
   environment.pathsToLink = [
     "/share/bash-completion"
+    "/share/gsettings-schemas"
     "/share/zsh"
   ]; # required to enable completion
 

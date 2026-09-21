@@ -22,6 +22,8 @@
     gh
 
     # system utilities
+    gptfdisk
+    gparted
     inxi
     fastfetch
     bat
@@ -37,6 +39,7 @@
     openconnect
     networkmanager-openconnect
     bluetuith
+    busybox
 
     # other utilities
     quickemu

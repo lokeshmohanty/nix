@@ -44,6 +44,7 @@ live in the `ui` skill — this one is about structure, dependencies and build.
 
 ## Memory
 
-- `memory/solidjs-vs-vanilla.md` — the 2026-08-10 `personal/games` analysis:
-  the measured split, why the answer was "don't convert", and the reusable
-  decision checklist.
+- `memory/solidjs-vs-vanilla.md` — the `personal/games` analysis (2026-08-10,
+  re-asked and re-confirmed 2026-08-27): the measured split both times, why the
+  answer was "don't convert", what `lib/ui.js` was built instead, and the
+  reusable decision checklist. **Re-measure before answering a repeat ask.**

@@ -28,7 +28,7 @@
           shell.enable = true;
           tui.enable = true;
         };
-        home.packages = with pkgs; [ wayvnc tigervnc];
+        home.packages = with pkgs; [ slack wayvnc tigervnc];
       }
     );
   };

@@ -15,12 +15,12 @@ in
   config = lib.mkIf config.modules.ai.enable {
     home.packages = with agents; [
       # harness
-      codex 
+      chatgpt 
       claude-code 
       antigravity-cli 
       pi
-      nanocoder
       agent-browser
+      opencode
       pkgs.libsixel # required by pi for image rendering
 
       # AXI agent-facing CLIs (gh-axi, chrome-devtools-axi, lavish-axi).

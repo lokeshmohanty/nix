@@ -21,9 +21,21 @@
     # /share/zsh, so we must explicitly add our lib directory.
     environment.pathsToLink = [ "/share/lib32-multimedia" ];
 
+    nixpkgs.overlays = [
+      (final: prev: {
+        pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+          (python-final: python-prev: {
+            steamworkspy = python-prev.steamworkspy.overrideAttrs (_: {
+              dontCheckPythonMetadata = true;
+            });
+          })
+        ];
+      })
+    ];
+
     environment.systemPackages = with pkgs; [
       mangohud
-      bottles
+      (bottles.override { removeWarningPopup = true; })
       # 32-bit multimedia libraries for Wine/Bottles gstreamer plugins.
       # The wine-ge-proton runner bundles 32-bit gstreamer plugins (libgstlibav,
       # libgstasf, libgstogg, etc.) that depend on system 32-bit libs not present

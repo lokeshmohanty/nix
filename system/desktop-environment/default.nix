@@ -24,7 +24,10 @@
     xdgOpenUsePortal = true;
   };
 
+  environment.sessionVariables.GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
   environment.systemPackages = with pkgs; [
+    glib
+    gsettings-desktop-schemas
     xdg-desktop-portal
 
     brightnessctl

@@ -34,10 +34,10 @@
     # libraries = [(pkgs.runCommand "steamrun-lib" {} "mkdir $out; ln -s ${pkgs.steam-run.fhsenv}/usr/lib64 $out/lib")];
   };
 
-  services.cloudflare-warp = {
-    enable = true;
-    openFirewall = true;
-  };
+  # services.cloudflare-warp = {
+  #   enable = true;
+  #   openFirewall = true;
+  # };
   # services.cloudflared.enable = true;
 
   # Printing
