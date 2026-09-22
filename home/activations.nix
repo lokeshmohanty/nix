@@ -4,6 +4,16 @@
 
   config = lib.mkIf config.modules.activations.enable {
     home.activation = {
+      # XDG data/state home. Guarantee ~/.local exists owned by the primary
+      # group: the NixOS syncthing service (User=lokesh Group=syncthing) creates
+      # missing parents on first start and would otherwise leave ~/.local as
+      # lokesh:syncthing. That unmapped group + no o+x breaks rootless podman
+      # userns_mode="keep-id" (crun: open .../merged: Permission denied).
+      local-dir = lib.mkAfter ''
+        mkdir -p ${config.home.homeDirectory}/.local
+        chgrp "$(id -gn)" ${config.home.homeDirectory}/.local
+        chmod 700 ${config.home.homeDirectory}/.local
+      '';
       hyprland = lib.mkIf config.modules.gui.enable (
         lib.mkAfter ''
           ln -sfn ${config.vars.nixDir}/config/hypr ${config.xdg.configHome}

@@ -16,6 +16,10 @@
           ignorePatterns = [
             ".venv/*"
             ".direnv/*"
+            "target/*"
+            "shell/*"
+            "node_modules/*"
+            ".output/*"
           ];
         };
         "Research" = {
@@ -24,6 +28,8 @@
           ignorePatterns = [
             ".venv/*"
             ".direnv/*"
+            "node_modules/*"
+            ".output/*"
           ];
         };
         "Presentations" = {
@@ -32,14 +38,8 @@
           ignorePatterns = [
             ".venv/*"
             ".direnv/*"
-          ];
-        };
-        "Books" = {
-          path = "/home/lokesh/Documents/Books";
-          devices = [ "laptop" ];
-          ignorePatterns = [
-            ".venv/*"
-            ".direnv/*"
+            "node_modules/*"
+            ".output/*"
           ];
         };
         "Practice" = {
@@ -48,6 +48,8 @@
           ignorePatterns = [
             ".venv/*"
             ".direnv/*"
+            "node_modules/*"
+            ".output/*"
           ];
         };
         "Notebook" = {
@@ -56,6 +58,8 @@
           ignorePatterns = [
             ".venv/*"
             ".direnv/*"
+            "node_modules/*"
+            ".output/*"
           ];
         };
       };

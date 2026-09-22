@@ -9,7 +9,7 @@
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
+  # boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
 
   programs.nix-ld = {
     enable = true;

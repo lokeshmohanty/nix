@@ -6,7 +6,10 @@
 {
   flake.nixosConfigurations = {
     bhaskara = self.hostlib.mkNixosHost {
-      hardwareModules = [ inputs.nixos-hardware.nixosModules.common-cpu-intel ];
+      hardwareModules = [ 
+        inputs.nixos-hardware.nixosModules.common-cpu-intel 
+        # inputs.nixos-hardware.nixosModules.common-gpu-nvidia
+      ];
       extraModules = [
         ./configuration.nix
         ./hardware-configuration.nix
