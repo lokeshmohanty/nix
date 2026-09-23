@@ -20,6 +20,7 @@
 - Honest framing beats impressive framing; surface self-caught corrections, don't bury them.
 - Exhaustive clarifying questions before large generation; phased delivery with review checkpoints.
 - Model routing (see `context-manager` skill): frontier model for theory/skill-authoring/research judgment; mid-tier for setup/drafting; small/local (pi with Gemma-4-31B) for routine tasks and reading `docs/`.
+- Codex model routing (2026-09-23): use `gpt-6-sol` only for planning; use `gpt-6-luna` to execute simpler tasks. This overrides the older tier examples above for Codex.
 - Keep documentation plain markdown so local models (pi) can answer from it without special tooling.
 
 ## Tooling defaults
