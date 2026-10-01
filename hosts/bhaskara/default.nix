@@ -21,7 +21,7 @@
     "lokesh@bhaskara" = self.hostlib.mkHomeHost (
       { pkgs, ... }:
       {
-        imports = [ ../../home ];
+        imports = [ ../../home ./email.nix ];
 
         modules = {
           ai.enable = true;

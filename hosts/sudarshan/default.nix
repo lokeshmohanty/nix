@@ -34,6 +34,11 @@
           wlvncc
           bitwarden-desktop
         ];
+
+        programs.ecr = {
+          enable = true;
+          desktop = true;
+        };
       }
     );
   };
