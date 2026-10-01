@@ -57,6 +57,7 @@ in
       };
     })
     (lib.mkIf tuiCfg.yazi.enable {
+      home.packages = [ pkgs.ripdrag ];
       programs.yazi = {
         enable = true;
         settings = {
@@ -67,13 +68,12 @@ in
             sort_reverse = true;
           };
         };
+        plugins = { drag = pkgs.yaziPlugins.drag; };
         keymap = {
           mgr.prepend_keymap = [
             {
               on = [ "<C-n>" ];
-              run = ''
-                shell '${pkgs.ripdrag}/bin/ripdrag "$@" -x 2>/dev/null &' --confirm
-              '';
+              run = "plugin drag";
               desc = "Drag and drop";
             }
           ];

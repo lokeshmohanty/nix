@@ -62,6 +62,39 @@
   sshServer.enable = true;
   programs.virt-manager.enable = true;
 
+  # NFS shares from airex-nas. Reachable by LAN IP (10.24.36.0/24 is in the
+  # export ACL); the Tailscale name `airex-nas` is unreliable here because the
+  # NAS's tailscaled can be down even when the box and NFS are up.
+  # Automounts: nothing mounts until touched, each unmounts after 60s idle, and
+  # `soft` makes I/O fail instead of hanging if the link drops mid-operation.
+  fileSystems."/mnt/nas/research" = {
+    device = "10.24.36.19:/volume1/research";
+    fsType = "nfs";
+    options = [
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.mount-timeout=10"
+      "_netdev"
+      "rw"
+      "soft"
+    ];
+  };
+
+  fileSystems."/mnt/nas/datasets" = {
+    device = "10.24.36.19:/volume1/datasets";
+    fsType = "nfs";
+    options = [
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.mount-timeout=10"
+      "_netdev"
+      "rw"
+      "soft"
+    ];
+  };
+
   networking.hostName = "bhaskara";
   searxng.enable = true; # local DuckDuckGo backend for pi web_search
 }

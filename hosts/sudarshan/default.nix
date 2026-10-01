@@ -31,7 +31,7 @@
 
         home.packages = with pkgs; [
           slack
-          tigervnc
+          wlvncc
           bitwarden-desktop
         ];
       }

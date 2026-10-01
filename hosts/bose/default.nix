@@ -29,7 +29,7 @@
           tui.enable = true;
         };
 
-        home.packages = with pkgs; [ slack wayvnc tigervnc];
+        home.packages = with pkgs; [ slack wayvnc wlvncc];
       }
     );
   };

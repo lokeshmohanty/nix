@@ -23,7 +23,10 @@
         set -g renumber-windows on
         set-option -g status-position top
         set-option -sg escape-time 0
-        set -g extended-keys on
+        # "on" only forwards extended keys (e.g. Shift+Enter) to apps that
+        # opt in via modifyOtherKeys; fish and most shells never do, so tmux
+        # downgrades S-Enter to a plain Enter. "always" forces mode 1.
+        set -g extended-keys always
         set -g extended-keys-format csi-u
 
         # keybindings

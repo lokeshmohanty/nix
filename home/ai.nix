@@ -15,7 +15,7 @@ in
   config = lib.mkIf config.modules.ai.enable {
     home.packages = with agents; [
       # harness
-      chatgpt 
+      codex
       claude-code 
       antigravity-cli 
       pi

@@ -34,17 +34,6 @@
     fsType = "ext4";
   };
 
-  fileSystems."/mnt/nas/research" = {
-    device = "airex-nas:/volume1/research";
-    fsType = "nfs";
-  };
-
-  fileSystems."/mnt/nas/datasets" = {
-    device = "airex-nas:/volume1/datasets";
-    fsType = "nfs";
-  };
-
-
   swapDevices = [ { device = "/dev/disk/by-uuid/e0aa367c-e3fb-4213-a675-cbefa54e1b63"; } ];
 
   networking = {
