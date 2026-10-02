@@ -18,7 +18,7 @@
     "lokesh@sudarshan" = self.hostlib.mkHomeHost (
       { pkgs, ... }:
       {
-        imports = [ ../../home ./email.nix ];
+        imports = [ ../../home inputs.ecr.homeManagerModules.default ];
 
         modules = {
           ai.enable = true;
