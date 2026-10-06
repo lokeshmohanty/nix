@@ -6,6 +6,7 @@
     # window manager
     ./hyprland.nix
     ./niri.nix
+    ./mango.nix
 
     # quick shell
     ./noctalia.nix

@@ -29,6 +29,11 @@
           ln -sfn ${config.vars.nixDir}/config/niri ${config.xdg.configHome}
         ''
       );
+      mango = lib.mkIf config.modules.gui.enable (
+        lib.mkAfter ''
+          ln -sfn ${config.vars.nixDir}/config/mango ${config.xdg.configHome}
+        ''
+      );
       noctalia = lib.mkIf config.modules.gui.enable (
         lib.mkAfter ''
           ln -sfn ${config.vars.nixDir}/config/noctalia ${config.xdg.configHome}

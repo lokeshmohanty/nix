@@ -34,20 +34,6 @@
   # Local SATA SSD (Samsung 860 EVO, LABEL=ssd). Automount like the NFS
   # shares above: nothing mounts until the path is touched, unmounts after
   # 60s idle, and `nofail` keeps a missing/damaged disk from blocking boot.
-  fileSystems."/run/media/lokesh/ssd" = {
-    device = "/dev/disk/by-uuid/42d7f20a-42b0-4153-aa91-b05394443e8c";
-    fsType = "ext4";
-    options = [
-      "x-systemd.automount"
-      "noauto"
-      "x-systemd.idle-timeout=60"
-      "x-systemd.mount-timeout=10"
-      "nofail"
-      "rw"
-      "relatime"
-      "errors=remount-ro"
-    ];
-  };
 
   fileSystems."/mnt/nas/research" = {
     device = "airex-nas:/volume1/research";
@@ -77,11 +63,26 @@
     ];
   };
 
+  fileSystems."/mnt/ssd" = {
+    device = "/dev/disk/by-uuid/42d7f20a-42b0-4153-aa91-b05394443e8c";
+    fsType = "ext4";
+    # options = [
+    #   "x-systemd.automount"
+    #   "noauto"
+    #   "x-systemd.idle-timeout=60"
+    #   "x-systemd.mount-timeout=10"
+    #   "nofail"
+    #   "rw"
+    #   "relatime"
+    #   "errors=remount-ro"
+    # ];
+  };
+
   networking.hostName = "sudarshan";
   gaming.enable = true;
   searxng.enable = true; # local DuckDuckGo backend for pi web_search
   desktop.niri.enable = true;
-  desktop.hyprland.enable = false;
+  desktop.mango.enable = true;
 
   powerManagement.enable = true;
   services.thermald.enable = true;
