@@ -27,7 +27,7 @@
     inxi
     fastfetch
     bat
-    duf
+    dysk
     libtool
     zip
     unzip

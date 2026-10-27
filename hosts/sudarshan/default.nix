@@ -33,6 +33,7 @@
           slack
           wlvncc
           bitwarden-desktop
+          nvtopPackages.amd
         ];
 
         programs.ecr = {

@@ -17,7 +17,7 @@
 | Subagents | yes — `agents/*.md` global + per-repo | yes — via `@tintinweb/pi-subagents` (reads `~/.pi/agent/agents` + `.agents/agents`) | no | no (VERIFY) | no (VERIFY) |
 | Plugins / extensions | plugins (`enabledPlugins`, marketplaces) | extensions (`~/.pi/agent/extensions/`, `pi install`) | no | `~/.gemini/extensions/` | plugins via `agy plugin`; IDE extensions in `~/.antigravity` |
 | Config | `~/.claude/settings.json` (+ `.local`, per-project) | `~/.pi/agent/settings.json`, `models.json` | `~/.codex/config.toml` | `~/.gemini/settings.json` | `~/.gemini/antigravity/` (agent home) + `~/.antigravity` (IDE) |
-| Nix-managed? | selective links (`CLAUDE.md`, `skills`, `settings.json`, `rules`); runtime dirs stay real | selective links (`settings.json`, `models.json`, `web-search.json`, `APPEND_SYSTEM.md`, `skills`) | AGENTS.md + skills links only — `config.toml` machine-local (secrets) | GEMINI.md link only | links for AGENTS.md, skills, mcp_config.json |
+| Nix-managed? | selective links (`CLAUDE.md`, `skills`, `settings.json`, `rules`); runtime dirs stay real | selective links (`settings.json`, `web-search.json`, `APPEND_SYSTEM.md`, `skills`); `models.json` machine-local, gitignored | AGENTS.md + skills links only — `config.toml` machine-local (secrets) | GEMINI.md link only | links for AGENTS.md, skills, mcp_config.json |
 
 Symlink map and full file layout: [layout.md](layout.md).
 
@@ -51,10 +51,16 @@ Verified: `pi 0.82.0`, `/nix/store/…-pi-0.82.0/bin/pi`; flake input `llm-agent
 
 **Config (`~/.pi/agent/`):**
 - `settings.json` (verified 2026-07-31): `defaultThinkingLevel: medium`, `defaultProvider: router-glm5.2`, `defaultModel: GLM-5.2`, 12 npm `packages` (listed under Extensions below). `defaultProvider`/`defaultModel` get hand-edited often — read the file, don't trust a value quoted here.
-- `models.json` (verified 2026-07-31) — three providers, all `api: openai-completions`:
+- `models.json` — **machine-local, gitignored** (untracked 2026-10-17; it holds API keys,
+  and `~/.pi` is a whole-dir symlink into the repo so the live file sits in the working
+  tree but is no longer committed). Custom providers, all `api: openai-completions`:
   - `vllm-gemma4-31` → `google/gemma-4-31B-it` (text+image) — local cluster
+  - `vllm-qwen35-122` → `Qwen/Qwen3.5-122B-A10B` (text+image) — local cluster
+  - `inception` → `mercury-2` (text) — Inception API
   - `router-glm5.2` → `GLM-5.2` (text, thinking) — default provider
   - `gw-glm-5.2` → `zai-org/GLM-5.2` (text+image) — Z.ai gateway
+  - `gw` → `zai-org/GLM-5.3` (text, reasoning), `Qwen/Qwen3.5-122B-A10B-FP8` (text+image),
+    `ahamx` = Gemma-4-31B (text+image) — axi gateway (`34.93.215.13`)
 - `web-search.json` at `~/.pi/web-search.json` (verified): provider `exa`, enabled.
 - `trust.json`, `auth.json`, `sessions/` also live in `~/.pi/agent/`.
 

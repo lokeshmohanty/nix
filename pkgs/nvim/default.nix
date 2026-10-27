@@ -52,7 +52,6 @@ inputs.nix-wrapper-modules.wrappers.neovim.wrap [
         trashy
         mermaid-cli
         imagemagick
-        ghostscript
         texlab # LaTeX
         resvg # svg rendering for lean-nvim
       ];

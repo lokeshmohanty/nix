@@ -35,47 +35,47 @@
   # shares above: nothing mounts until the path is touched, unmounts after
   # 60s idle, and `nofail` keeps a missing/damaged disk from blocking boot.
 
-  fileSystems."/mnt/nas/research" = {
-    device = "airex-nas:/volume1/research";
-    fsType = "nfs";
-    options = [
-      "x-systemd.automount"
-      "noauto"
-      "x-systemd.idle-timeout=60"
-      "x-systemd.mount-timeout=10"
-      "_netdev"
-      "rw"
-      "soft"
-    ];
-  };
-
-  fileSystems."/mnt/nas/datasets" = {
-    device = "airex-nas:/volume1/datasets";
-    fsType = "nfs";
-    options = [
-      "x-systemd.automount"
-      "noauto"
-      "x-systemd.idle-timeout=60"
-      "x-systemd.mount-timeout=10"
-      "_netdev"
-      "rw"
-      "soft"
-    ];
-  };
+  # fileSystems."/mnt/nas/research" = {
+  #   device = "airex-nas:/volume1/research";
+  #   fsType = "nfs";
+  #   options = [
+  #     "x-systemd.automount"
+  #     "noauto"
+  #     "x-systemd.idle-timeout=60"
+  #     "x-systemd.mount-timeout=10"
+  #     "_netdev"
+  #     "rw"
+  #     "soft"
+  #   ];
+  # };
+  #
+  # fileSystems."/mnt/nas/datasets" = {
+  #   device = "airex-nas:/volume1/datasets";
+  #   fsType = "nfs";
+  #   options = [
+  #     "x-systemd.automount"
+  #     "noauto"
+  #     "x-systemd.idle-timeout=60"
+  #     "x-systemd.mount-timeout=10"
+  #     "_netdev"
+  #     "rw"
+  #     "soft"
+  #   ];
+  # };
 
   fileSystems."/mnt/ssd" = {
     device = "/dev/disk/by-uuid/42d7f20a-42b0-4153-aa91-b05394443e8c";
     fsType = "ext4";
-    # options = [
-    #   "x-systemd.automount"
-    #   "noauto"
-    #   "x-systemd.idle-timeout=60"
-    #   "x-systemd.mount-timeout=10"
-    #   "nofail"
-    #   "rw"
-    #   "relatime"
-    #   "errors=remount-ro"
-    # ];
+    options = [
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.mount-timeout=10"
+      "nofail"
+      "rw"
+      "relatime"
+      "errors=remount-ro"
+    ];
   };
 
   networking.hostName = "sudarshan";

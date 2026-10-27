@@ -55,6 +55,7 @@
       rclone
       yt-dlp
       ffmpeg
+      ghostscript
 
       # Chrome-fingerprinted curl. Cloudflare-protected hosts reject Node's and
       # stock curl's TLS handshake even with a valid clearance cookie; abdm-grab
@@ -68,13 +69,12 @@
       sd # sed alternative
       ripgrep # grep alternative
 
-      yq-go # yaml processor https://github.com/mikefarah/yq
+      jq yq-go # yaml processor https://github.com/mikefarah/yq
       just # a command runner like make, but simpler
-      delta # A viewer for git and diff output
       hyperfine # command-line benchmarking tool
       gping # ping, but with a graph(TUI)
       doggo # DNS client for humans
-      duf # Disk Usage/Free Utility - a better 'df' alternative
+      dysk # Disk Usage/Free Utility - a better 'df' alternative
       gdu # disk usage analyzer(replacement of `du`)
       qrcp # for generating qr code for file transfer
 

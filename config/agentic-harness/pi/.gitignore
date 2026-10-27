@@ -1,6 +1,7 @@
 agent/auth.json
 agent/sessions/
 agent/trust.json
+agent/models.json
 agent/models-store.json
 agent/ayu/
 agent/extensions/pi-permission-system/logs/
