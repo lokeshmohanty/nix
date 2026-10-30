@@ -12,7 +12,6 @@
     # krita
     vscode-fhs
     bruno
-    rustdesk-flutter
 
     # cli applications
     # tesseract

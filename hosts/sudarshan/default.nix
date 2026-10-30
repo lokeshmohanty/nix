@@ -10,7 +10,6 @@
       extraModules = [
         ./configuration.nix
         ./hardware-configuration.nix
-        ./syncthing.nix
       ];
     };
   };
@@ -18,7 +17,21 @@
     "lokesh@sudarshan" = self.hostlib.mkHomeHost (
       { pkgs, ... }:
       {
-        imports = [ ../../home inputs.ecr.homeManagerModules.default ];
+        imports = [
+          ../../home
+          inputs.ecr.homeManagerModules.default
+          (import ../../home/services/syncthing.nix {
+            device = "lab";
+            deviceId = "JMX5I5E-QPGGDMS-MWEE6FN-JPZXFHK-EJFSXVH-5FGKYBP-XXOR5VT-2LOB7AS";
+            folders = [
+              "Projects"
+              "Research"
+              "Presentations"
+              "Practice"
+              "Notebook"
+            ];
+          })
+        ];
 
         modules = {
           ai.enable = true;

@@ -6,14 +6,10 @@
 {
   flake.nixosConfigurations = {
     bhaskara = self.hostlib.mkNixosHost {
-      hardwareModules = [ 
-        inputs.nixos-hardware.nixosModules.common-cpu-intel 
-        # inputs.nixos-hardware.nixosModules.common-gpu-nvidia
-      ];
+      hardwareModules = [ inputs.nixos-hardware.nixosModules.common-cpu-intel ];
       extraModules = [
         ./configuration.nix
         ./hardware-configuration.nix
-        ./syncthing.nix
       ];
     };
   };
@@ -21,7 +17,21 @@
     "lokesh@bhaskara" = self.hostlib.mkHomeHost (
       { pkgs, ... }:
       {
-        imports = [ ../../home ./email.nix ];
+        imports = [
+          ../../home
+          ./email.nix
+          (import ../../home/services/syncthing.nix {
+            device = "laptop";
+            deviceId = "E35GV3M-GT4AQEH-DEWAIYP-T6MSAM4-UFC7U4C-PWQHMSM-6XGZW5P-62VIKQM";
+            folders = [
+              "Projects"
+              "Research"
+              "Presentations"
+              "Practice"
+              "Notebook"
+            ];
+          })
+        ];
 
         modules = {
           ai.enable = true;

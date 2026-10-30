@@ -1,4 +1,8 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  ...
+}:
 {
   options.modules.gui.enable = lib.mkEnableOption "GUI toolkit integration";
 
@@ -6,7 +10,6 @@
     {
       modules.gui = {
         browser.enable = lib.mkDefault config.modules.gui.enable;
-        # kitty is the default terminal; foot stays available but off by default
         foot.enable = lib.mkDefault false;
         kitty.enable = lib.mkDefault config.modules.gui.enable;
         ghostty.enable = lib.mkDefault config.modules.gui.enable;
@@ -19,5 +22,14 @@
       qt.enable = true;
       qt.platformTheme.name = "gtk3";
     })
+  ];
+
+  imports = [
+    ./browser
+    ./launcher
+    ./terminal
+    ./pdf.nix
+    ./xdg.nix
+    ./satty.nix
   ];
 }
