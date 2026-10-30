@@ -1,7 +1,15 @@
 .personality_migration
 .tmp/
+.codex*
+.sandbox_migration
+queue*
+session_index.jsonl
 auth.json
+tmp/
+sqlite/
 cache/
+vendor_imports/
+thread*
 config.toml
 goals*
 history.jsonl

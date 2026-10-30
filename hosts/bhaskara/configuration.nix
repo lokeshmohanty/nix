@@ -1,14 +1,8 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}:
-{
+{ pkgs, ... }: {
   imports = [ ../../system ];
 
   hardware.graphics.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
   hardware.nvidia = {
     modesetting.enable = true;
     open = true;
@@ -17,6 +11,9 @@
   nixpkgs.config = {
     nvidia.acceptLicense = true;
   };
+  environment.systemPackages = [
+    (pkgs.bottles.override { removeWarningPopup = true; })
+  ];
   desktop.niri.enable = true;
 
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
@@ -51,10 +48,10 @@
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
-    publish = {
-      enable = true;
-      userServices = true;
-      addresses = true;
+    settings.publish = {
+      disable-publishing = false;
+      disable-user-service-publishing = false;
+      publish-addresses = true;
     };
   };
 
@@ -93,6 +90,11 @@
       "soft"
     ];
   };
+
+  # = loginctl enable-linger lokesh: keep the user manager (and rootless
+  # Podman) running after logout/reboot so /mnt/hdd2/Servers compose stacks
+  # auto-start via podman-restart.service.
+  users.users.lokesh.linger = true;
 
   networking.hostName = "bhaskara";
   searxng.enable = true; # local DuckDuckGo backend for pi web_search

@@ -27,10 +27,13 @@
     # Tracks `main`. `github:lokeshmohanty/ecr/release` is the other channel and
     # follows the newest tag; `nix flake update ecr` moves whichever is pinned
     # here, and `ecr --version` reports the revision so the two never blur.
-    ecr = {
-      url = "github:lokeshmohanty/ecr";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #
+    # No `inputs.nixpkgs.follows`: ecr is built against its own locked nixpkgs,
+    # the exact pin its CI pushes to lokeshmohanty.cachix.org. Following this
+    # flake's unstable nixpkgs re-hashed the whole build closure — stdenv, the
+    # fenix toolchain, WebKitGTK — so nothing ever substituted and every
+    # `nix flake update` here was a from-source rebuild of ecr.
+    ecr.url = "github:lokeshmohanty/ecr";
 
     nix-alien.url = "github:thiagokokada/nix-alien";
     nix-wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
