@@ -398,7 +398,7 @@ binds {
     // Applications
     // ============
     Mod+Return { spawn "kitty" "--single-instance"; }
-    Mod+B { spawn "firefox-beta"; }
+    Mod+B { spawn "firefox"; }
     Mod+E { spawn "nautilus"; }
     Mod+I { spawn "~/.config/niri/my-bookmark" "list"; }
     Mod+M { spawn-sh "ecr"; }
