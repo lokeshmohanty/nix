@@ -15,14 +15,14 @@ by `home/activations.nix`).
 | `env.conf` | `hypr/env.conf` | env vars |
 | `appearance.conf` | `hypr/appearance.conf` | gaps, border/focus colors, radius, opacity, blur, shadows, animations, scroller/tile/dwindle defaults, overview, misc |
 | `input.conf` | — (hypr keeps input in `appearance.conf`) | keyboard repeat/numlock/xkb, trackpad, mouse |
-| `monitors.conf` | `hypr/monitors.conf` | `monitorrule` per output |
-| `workspaces.conf` | `hypr/workspaces.conf` | `tagrule` per tag |
-| `windowrules.conf` | `hypr/windowrules.conf` | `windowrule` + `layerrule` |
+| `monitors.conf` | `hypr/monitors.conf` | `monitor_rule` per output |
+| `workspaces.conf` | `hypr/workspaces.conf` | `tag_rule` per tag |
+| `windowrules.conf` | `hypr/windowrules.conf` | `window_rule` + `layer_rule` |
 | `binds.conf` | `hypr/binds.conf` | all binds |
-| `autostart.conf` | `hypr/autostart.conf` | `exec-once` lines |
+| `autostart.conf` | `hypr/autostart.conf` | `exec_once` lines |
 
-No `variables.conf`: mango 0.16.3 has no `var=` support (added upstream
-later), so commands are inlined in `binds.conf`.
+No `variables.conf`: commands are inlined in `binds.conf` (mango
+supports `var=` since 0.17, but the config does not use it yet).
 
 ## Useful commands
 
@@ -34,8 +34,8 @@ later), so commands are inlined in `binds.conf`.
 - Workspaces -> fixed tags 1–9 (`view`/`tag`); niri's dynamic empty
   workspaces and `focus-workspace-previous` map to `view,-1,0` for last.
 - `focus-window-or-workspace` exists in mango too (Mod+J/K preserved).
-- Move/swap uses `exchange_client` (mango 0.16.3 has no plain
-  `move_client`); consume/expel maps to `scroller_stack`.
+- Move/swap uses `exchange_client` (bidirectional swap; consume/expel
+  maps to `scroller_stack`). mango 0.18.4 also has `move_client`.
 - Monitor positions must be `x >= 0` (XWayland breaks with negative
   coordinates), so the left external output is at `x=0` and `eDP-1` at
   `x=1920` — same order as niri, shifted right.
@@ -44,7 +44,7 @@ later), so commands are inlined in `binds.conf`.
 - Helper scripts (`my-bookmark`, `my-commands`, `my-recorder`) are shared
   with niri via `~/.config/niri/`, not duplicated.
 
-## Not ported (no mango 0.16.3 equivalent)
+## Not ported (no mango equivalent)
 
 - `show-hotkey-overlay` (slot reused for `reload_config`)
 - `niri msg pick-window | … | kill` (use `SUPER+SHIFT+x` = `killclient,force`)
@@ -56,4 +56,4 @@ later), so commands are inlined in `binds.conf`.
   inhibit toggle, OBS `pass`, touchpad scroll binds (commented out in niri
   anyway)
 - Screenshot-a-window: `ALT+Print` does a region capture like `Print`
-  (mango 0.16.3 has no capture-window dispatcher)
+  (mango 0.18.4 has no capture-window dispatcher)
