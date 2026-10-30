@@ -1,10 +1,12 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
   ...
 }:
 {
+  imports = [ inputs.mangowm.nixosModules.mango ];
   options.desktop.mango = {
     enable = lib.mkEnableOption "Mango: Scrolling/Tiling based window manager";
   };

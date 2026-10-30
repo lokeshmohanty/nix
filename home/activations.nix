@@ -1,4 +1,13 @@
 { lib, config, ... }:
+let
+  # Generate `ln -sfn` commands from an attrset of { targetPath: sourcePath }.
+  # Each entry becomes: ln -sfn <sourcePath> <targetPath>
+  mkLinks = links: lib.concatStringsSep "\n" (
+    lib.mapAttrsToList (target: source: "ln -sfn ${source} ${target}") links
+  );
+
+  cfg = "${config.vars.nixDir}/config";
+in
 {
   options.modules.activations.enable = lib.mkEnableOption "desktop activation symlinks";
 
@@ -14,81 +23,44 @@
         chgrp "$(id -gn)" ${config.home.homeDirectory}/.local
         chmod 700 ${config.home.homeDirectory}/.local
       '';
-      hyprland = lib.mkIf config.modules.gui.enable (
+
+      gui-config = lib.mkIf config.modules.gui.enable (
         lib.mkAfter ''
-          ln -sfn ${config.vars.nixDir}/config/hypr ${config.xdg.configHome}
-          ln -sfn ${config.vars.nixDir}/config/waybar ${config.xdg.configHome}
-          ln -sfn ${config.vars.nixDir}/config/wlogout ${config.xdg.configHome}
-          ln -sfn ${config.vars.nixDir}/config/swappy ${config.xdg.configHome}
-          ln -sfn ${config.vars.nixDir}/config/gtk.css ${config.xdg.configHome}
-          ln -sfn ${config.vars.nixDir}/config/icons ${config.xdg.configHome}
+          ${mkLinks {
+            "${config.xdg.configHome}/hypr" = "${cfg}/hypr";
+            "${config.xdg.configHome}/waybar" = "${cfg}/waybar";
+            "${config.xdg.configHome}/wlogout" = "${cfg}/wlogout";
+            "${config.xdg.configHome}/swappy" = "${cfg}/swappy";
+            "${config.xdg.configHome}/gtk.css" = "${cfg}/gtk.css";
+            "${config.xdg.configHome}/icons" = "${cfg}/icons";
+            "${config.xdg.configHome}/niri" = "${cfg}/niri";
+            "${config.xdg.configHome}/mango" = "${cfg}/mango";
+            "${config.xdg.configHome}/noctalia" = "${cfg}/noctalia";
+            "${config.xdg.configHome}/inkscape" = "${cfg}/inkscape";
+          }}
         ''
       );
-      niri = lib.mkIf config.modules.gui.enable (
-        lib.mkAfter ''
-          ln -sfn ${config.vars.nixDir}/config/niri ${config.xdg.configHome}
-        ''
-      );
-      mango = lib.mkIf config.modules.gui.enable (
-        lib.mkAfter ''
-          ln -sfn ${config.vars.nixDir}/config/mango ${config.xdg.configHome}
-        ''
-      );
-      noctalia = lib.mkIf config.modules.gui.enable (
-        lib.mkAfter ''
-          ln -sfn ${config.vars.nixDir}/config/noctalia ${config.xdg.configHome}
-        ''
-      );
+
       scripts = lib.mkIf config.modules.shell.enable (
         lib.mkAfter ''
           mkdir -p ${config.home.homeDirectory}/.local/bin
           ln -sfn ${config.vars.nixDir}/scripts/* ${config.home.homeDirectory}/.local/bin/
         ''
       );
-      inkscape = lib.mkIf config.modules.gui.enable (
+
+      ai-links = lib.mkIf config.modules.ai.enable (
         lib.mkAfter ''
-          ln -sfn ${config.vars.nixDir}/config/inkscape ${config.xdg.configHome}/inkscape
+          ${mkLinks {
+            "${config.home.homeDirectory}/.agents" = "${cfg}/agentic-harness/agents";
+            "${config.home.homeDirectory}/.claude" = "${cfg}/agentic-harness/claude";
+            "${config.home.homeDirectory}/.pi" = "${cfg}/agentic-harness/pi";
+            "${config.xdg.configHome}/pi/web-search.json" = "${cfg}/agentic-harness/pi/web-search.json";
+            "${config.home.homeDirectory}/.codex" = "${cfg}/agentic-harness/codex";
+            "${config.home.homeDirectory}/.gemini" = "${cfg}/agentic-harness/gemini";
+          }}
         ''
       );
-      # Agentic harness (see config/agentic-harness/agents/docs/layout.md).
-      # ~/.agents is a whole-dir symlink; ~/.claude and ~/.pi stay REAL dirs
-      # (runtime state, credentials) with selective links inside.
-      # ln -sfn, never ln -sf: -sf on an existing dir drops the link INSIDE it.
-      agents = lib.mkIf config.modules.ai.enable (
-        lib.mkAfter ''
-          ln -sfn ${config.vars.nixDir}/config/agentic-harness/agents ${config.home.homeDirectory}/.agents
-        ''
-      );
-      claude = lib.mkIf config.modules.ai.enable (
-        lib.mkAfter ''
-          ln -sfn ${config.vars.nixDir}/config/agentic-harness/claude ${config.home.homeDirectory}/.claude
-        ''
-      );
-      pi = lib.mkIf config.modules.ai.enable (
-        lib.mkAfter ''
-          ln -sfn ${config.vars.nixDir}/config/agentic-harness/pi ${config.home.homeDirectory}/.pi
-        ''
-      );
-      # pi-web-access reads web-search.json from $XDG_CONFIG_HOME/pi (set by
-      # home-manager xdg.configHome), NOT from ~/.pi. Without this link the
-      # repo-tracked file above is shadowed by an unmanaged ~/.config/pi file.
-      # Symlink it so the repo file is the single source of truth.
-      pi-web-search = lib.mkIf config.modules.ai.enable (
-        lib.mkAfter ''
-          mkdir -p ${config.xdg.configHome}/pi
-          ln -sfn ${config.vars.nixDir}/config/agentic-harness/pi/web-search.json ${config.xdg.configHome}/pi/web-search.json
-        ''
-      );
-      codex = lib.mkIf config.modules.ai.enable (
-        lib.mkAfter ''
-          ln -sfn ${config.vars.nixDir}/config/agentic-harness/codex ${config.home.homeDirectory}/.codex
-        ''
-      );
-      gemini = lib.mkIf config.modules.ai.enable (
-        lib.mkAfter ''
-          ln -sfn ${config.vars.nixDir}/config/agentic-harness/gemini ${config.home.homeDirectory}/.gemini
-        ''
-      );
+
       harness-bin = lib.mkIf config.modules.ai.enable (
         lib.mkAfter ''
           mkdir -p ${config.home.homeDirectory}/.local/bin

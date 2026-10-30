@@ -34,6 +34,7 @@
           wlvncc
           bitwarden-desktop
           nvtopPackages.amd
+          faugus-launcher
         ];
 
         programs.ecr = {

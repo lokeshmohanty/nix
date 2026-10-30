@@ -6,7 +6,6 @@
   imports = [ ../../system ./tailscale-second.nix ];
 
   hardware.graphics.enable = true;
-  gaming.enable = false;
 
   programs.nix-ld = {
     enable = true;

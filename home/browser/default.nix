@@ -4,7 +4,7 @@
 
   config = lib.mkIf config.modules.gui.browser.enable {
     home.sessionVariables.BROWSER = "firefox";
-    home.packages = [ pkgs.firefox-beta ];
+    home.packages = [ pkgs.firefox ];
     programs.qutebrowser = {
       enable = true;
       loadAutoconfig = true;

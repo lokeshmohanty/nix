@@ -14,9 +14,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland.url = "github:hyprwm/Hyprland";
-
-    sysc-greet = {
-      url = "github:Nomadcxx/sysc-greet";
+    mangowm = {
+      url = "github:mangowm/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

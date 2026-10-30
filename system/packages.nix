@@ -7,7 +7,7 @@
     # gui applications
     google-chrome
     onlyoffice-desktopeditors
-    zotero
+    # zotero
     (inkscape-with-extensions.override { inkscapeExtensions = [ inkscape-extensions.textext ]; })
     # krita
     vscode-fhs

@@ -47,6 +47,7 @@
       targets = {
         firefox.enable = false;
         tofi.enable = false;
+        rofi.enable = false;
       };
       polarity = "dark";
       # opacity = {
@@ -73,7 +74,7 @@
         sansSerif = config.stylix.fonts.monospace;
         monospace = {
           package = pkgs.cascadia-code;
-          name = "Cascadia Code";
+          name = config.vars.fontName;
         };
         emoji = {
           package = pkgs.noto-fonts-color-emoji;

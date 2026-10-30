@@ -17,7 +17,6 @@
   nixpkgs.config = {
     nvidia.acceptLicense = true;
   };
-  gaming.enable = false;
   desktop.niri.enable = true;
 
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
