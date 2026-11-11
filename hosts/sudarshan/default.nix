@@ -22,7 +22,7 @@
           inputs.ecr.homeManagerModules.default
           (import ../../home/services/syncthing.nix {
             device = "lab";
-            deviceId = "JMX5I5E-QPGGDMS-MWEE6FN-JPZXFHK-EJFSXVH-5FGKYBP-XXOR5VT-2LOB7AS";
+            deviceId = "CAV5U6J-K62NA3F-RDJ2ONT-Y4X7K4F-6XKRDFP-ML34WGB-WBRBOLH-2GGAAAD";
             folders = [
               "Projects"
               "Research"

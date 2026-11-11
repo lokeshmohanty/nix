@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.86.1",
+  "lastChangelogVersion": "1.4.0",
   "defaultProvider": "router-glm5.2",
   "defaultModel": "GLM-5.2",
   "defaultThinkingLevel": "medium",
@@ -18,7 +18,6 @@
     "npm:pi-lens",
     "npm:pi-patty-bg-tasks",
     "npm:pi-loop-police",
-    "npm:pi-mcp-adapter",
     "npm:@narumitw/pi-retry",
     "npm:@juicesharp/rpiv-advisor",
     "npm:pi-simplify"

@@ -22,7 +22,7 @@
           ./email.nix
           (import ../../home/services/syncthing.nix {
             device = "laptop";
-            deviceId = "E35GV3M-GT4AQEH-DEWAIYP-T6MSAM4-UFC7U4C-PWQHMSM-6XGZW5P-62VIKQM";
+            deviceId = "ZUAVAEV-LA24HLW-EIXNXCB-O7DEVOB-CJWPE22-SH5JKJY-MYCOLMN-EUK5LAS";
             folders = [
               "Projects"
               "Research"
