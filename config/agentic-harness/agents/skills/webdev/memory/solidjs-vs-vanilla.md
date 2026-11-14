@@ -8,7 +8,7 @@ metadata:
   tags: [solidjs, framework, migration, build-step, vanilla-js]
 ---
 
-# SolidJS vs vanilla — the games repo verdict (2026-08-10, held 2026-08-27)
+# SolidJS vs vanilla — the games repo verdict (2026-08-10, held 2026-08-27, reversed 2026-11-14)
 
 **Verdict: do not convert.** Asked to weigh merits/demerits for
 `~/Projects/personal/games` (4 canvas games + portal, 5,570 lines, zero deps,
@@ -20,6 +20,31 @@ back; answer it with the measurement, not the verdict. The ratio had moved
 *away* from a framework: the session added ~700 lines of pure logic
 (`lib/secrets.js`, `lib/rounds.js`), so the reactive share fell to ~20% of 7,600
 lines. Same answer, better number.
+
+## 2026-11-14 — reversed: Solid + Vite SPA shell, *after* perf fixes
+
+Third ask, now as part of a whole-platform refactor ("very fast and slick").
+Re-measured: the platform grew accounts, leaderboard, profile, contributors and
+an SDK. DOM-from-state is now **~35–40%** of shell code (party, lobby, portal,
+leaderboard, profile, account-ui, contributors, nav ≈ 3.9k of 13k lib lines plus
+~1.5k lines of page HTML), up from ~20%. Two of the original blockers had gone:
+`file://` was already dropped for games (2026-11-13), and Lokesh dropped it for
+the shell too; deploy already has a build job (`build-community`).
+
+What still held, and was said up front: **the framework fixes none of the
+measured slowness.** That was network/handshake cost (room-server probe before
+bots mode, ~10 serial frame fetches, network-first SW, 6.7 MB of gifs). So the
+order is perf fixes in vanilla first, then the Solid SPA, whose real payoff is
+one document (the WebRTC party survives moving between views) plus view
+transitions. Pure-logic modules (net, qr, secrets, rounds, stats) stay
+framework-free ES modules. Rust/WASM *for the shell* was not chosen (I/O- and
+DOM-bound); Rust became a first-class *game* language instead. Plan:
+`~/.claude/plans/ethereal-honking-beaver.md`; games-repo memory
+`gaming-platform-vision`.
+
+Lesson for the checklist: the ratio moves both ways. A repo that grows *product
+pages* (not logic) drifts toward a framework; re-measure, and keep separating
+"what makes it fast" from "what makes it pleasant to build".
 
 ## The measurement that decided it
 
