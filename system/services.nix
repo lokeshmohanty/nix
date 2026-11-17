@@ -38,6 +38,13 @@
   };
   services.fwupd.enable = true; # firmware update manager
 
+  # oomd runs by default but watches no cgroups; without this a runaway
+  # session thrashes the swap partition until the machine freezes.
+  systemd.oomd.enableUserSlices = true;
+  # Full magic SysRq (default allows only sync) so a frozen machine can be
+  # rescued with Alt+SysRq+F (OOM kill) or REISUB instead of a hard reset.
+  boot.kernel.sysctl."kernel.sysrq" = 1;
+
   # Capslock as Control + Escape, Escape as Capslock
   services.interception-tools = {
     enable = true;
