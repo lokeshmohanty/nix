@@ -11,7 +11,7 @@
 let
   # Common ignore pattern sets
   defaultIgnores = [
-    ".venv/*"
+    ".venv*/*"
     ".direnv/*"
     "node_modules/*"
     ".output/*"

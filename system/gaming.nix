@@ -20,6 +20,7 @@
     environment.systemPackages = with pkgs; [
       mangohud
       (bottles.override { removeWarningPopup = true; })
+      qbittorrent
     ];
   };
 }
