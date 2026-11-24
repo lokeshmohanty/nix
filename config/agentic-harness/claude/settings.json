@@ -8,7 +8,7 @@
     "allow": [],
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
+  "model": "opus",
   "hooks": {
     "SessionStart": [
       {
@@ -62,8 +62,13 @@
     }
   },
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
+    }
+  },
   "tui": "fullscreen",
-  "theme": "dark",
-  "skipAutoPermissionPrompt": true,
-  "agentPushNotifEnabled": true
+  "theme": "auto",
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true
 }

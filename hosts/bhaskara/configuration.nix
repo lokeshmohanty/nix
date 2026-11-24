@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   imports = [ ../../system ];
 
   hardware.graphics.enable = true;
@@ -6,14 +6,17 @@
   hardware.nvidia = {
     modesetting.enable = true;
     open = true;
+    # 595.112.07 oopsed in nvidia_uvm (process_lazy_free, HMM path) on
+    # 2026-11-13 and hard-hung the box; moved off that branch.
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
+  # HMM is unused by plain CUDA/PyTorch and was in the crashing fault path.
+  boot.extraModprobeConfig = "options nvidia_uvm uvm_disable_hmm=1";
+  # Reboot on a kernel oops instead of freezing until a power-button reset.
+  boot.kernel.sysctl."kernel.panic_on_oops" = 1;
+  boot.kernel.sysctl."kernel.panic" = 10;
   services.xserver.videoDrivers = [ "nvidia" ];
-  nixpkgs.config = {
-    nvidia.acceptLicense = true;
-  };
-  environment.systemPackages = [
-    (pkgs.bottles.override { removeWarningPopup = true; })
-  ];
+  nixpkgs.config.nvidia.acceptLicense = true;
   desktop.niri.enable = true;
 
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
@@ -88,6 +91,21 @@
       "_netdev"
       "rw"
       "soft"
+    ];
+  };
+
+  fileSystems."/mnt/ssd" = {
+    device = "/dev/disk/by-uuid/42d7f20a-42b0-4153-aa91-b05394443e8c";
+    fsType = "ext4";
+    options = [
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.mount-timeout=10"
+      "nofail"
+      "rw"
+      "relatime"
+      "errors=remount-ro"
     ];
   };
 

@@ -41,7 +41,13 @@
           shell.enable = true;
           tui.enable = true;
         };
-        home.packages = with pkgs; [ slack wayvnc wlvncc nvtopPackages.nvidia ];
+        home.packages = with pkgs; [ 
+          slack 
+          wayvnc wlvncc 
+          nvtopPackages.nvidia 
+          qbittorrent
+          (pkgs.bottles.override { removeWarningPopup = true; })
+        ];
       }
     );
   };
